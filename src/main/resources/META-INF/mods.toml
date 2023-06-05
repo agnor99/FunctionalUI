@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="[45,)"
+license="MIT"
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+
+[[mods]]
+modId="functionalui"
+version="${file.jarVersion}"
+displayName="FunctionalUI"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
+#logoFile="FunctionalUI.png"
+credits="Hey PhoenixSC, if you see this, thanks for entertaining me with cursed creations"
+authors="agnor99"
+displayTest="IGNORE_ALL_VERSION"
+description='''
+   Hey, I'm back with another cursed creation
+'''
+[[dependencies.functionalui]]
+   modId="forge"
+   mandatory=true
+   versionRange="[45,)"
+   ordering="NONE"
+   side="BOTH"
+
+[[dependencies.functionalui]]
+   modId="minecraft"
+   mandatory=true
+   versionRange="[1.19.4,1.20)"
+   ordering="NONE"
+   side="BOTH"
