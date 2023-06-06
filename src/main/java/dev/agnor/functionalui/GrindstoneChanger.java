@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -22,12 +23,13 @@ import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.joml.*;
+import org.joml.Vector2f;
+import org.joml.Vector2i;
 
-import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class GrindstoneChanger {
@@ -143,18 +145,18 @@ public class GrindstoneChanger {
             RenderSystem.setShaderTexture(0, additionalAssets);
             for (int x = 30; x < 84; x+=30) {
                 for (int y = 15; y < 71; y+=30) {
-                    screen.blit(poseStack, screen.getGuiLeft()+x, screen.getGuiTop()+y, 82, 0, 30, 30);
+                    GuiComponent.blit(poseStack, screen.getGuiLeft()+x, screen.getGuiTop()+y, 82, 0, 30, 30);
                 }
             }
-            screen.blit(poseStack, screen.getGuiLeft()+128, screen.getGuiTop()+33, 82, 0, 18, 18);
+            GuiComponent.blit(poseStack, screen.getGuiLeft()+128, screen.getGuiTop()+33, 82, 0, 18, 18);
             poseStack.pushPose();
             poseStack.translate(screen.getGuiLeft() + 48 + offset, screen.getGuiTop() + 29 + offset, 0);
             poseStack.mulPose(Axis.ZP.rotationDegrees(-Mth.lerp(Minecraft.getInstance().getPartialTick(), rotationProgress + 350, rotationProgress + 360)));
             poseStack.translate(-(screen.getGuiLeft() + 48 + offset), -(screen.getGuiTop() + 29 + offset), 0);
-            screen.blit(poseStack, screen.getGuiLeft()+42, screen.getGuiTop()+23, 173, 0, 24, 24);
+            GuiComponent.blit(poseStack, screen.getGuiLeft()+42, screen.getGuiTop()+23, 173, 0, 24, 24);
             poseStack.popPose();
-            screen.blit(poseStack, screen.getGuiLeft()+48, screen.getGuiTop()+29, 161, 0, 12, 26);
-            screen.blit(poseStack, screen.getGuiLeft() + 95, screen.getGuiTop() + 34, 0, 0, (int)(Math.min(100, progress) / 100f * 22), 15);
+            GuiComponent.blit(poseStack, screen.getGuiLeft()+48, screen.getGuiTop()+29, 161, 0, 12, 26);
+            GuiComponent.blit(poseStack, screen.getGuiLeft() + 95, screen.getGuiTop() + 34, 0, 0, (int)(Math.min(100, progress) / 100f * 22), 15);
         }
     }
 
@@ -162,7 +164,7 @@ public class GrindstoneChanger {
     public static void postScreenRendered(ScreenEvent.Render.Post postRender) {
         if (postRender.getScreen() instanceof GrindstoneScreen screen) {
             PoseStack poseStack = postRender.getPoseStack();
-            findFirstInput(screen).map(slot -> slot.getItem()).ifPresent(stack -> {
+            findFirstInput(screen).map(Slot::getItem).ifPresent(stack -> {
                 if (!stack.isEmpty()) {
                     screen.renderFloatingItem(poseStack, stack, postRender.getMouseX() - 8, postRender.getMouseY() - 8, null);
 
@@ -174,7 +176,7 @@ public class GrindstoneChanger {
                         name = new ResourceLocation(name.getNamespace(), "textures/" + name.getPath() + ".png");
                         RenderSystem.setShaderTexture(0, name);
                         for (ParticleData data : particles) {
-                            screen.blit(poseStack, (int) data.pos.x, (int) data.pos.y, particleIcon.contents().width() / 4f * data.uvpart.x, particleIcon.contents().height() / 4f * data.uvpart.y, particleIcon.contents().width() / 4, particleIcon.contents().height() / 4, particleIcon.contents().width(), particleIcon.contents().height());
+                            GuiComponent.blit(poseStack, (int) data.pos.x, (int) data.pos.y, particleIcon.contents().width() / 4f * data.uvpart.x, particleIcon.contents().height() / 4f * data.uvpart.y, particleIcon.contents().width() / 4, particleIcon.contents().height() / 4, particleIcon.contents().width(), particleIcon.contents().height());
                         }
                     }
                 }

@@ -3,9 +3,8 @@ package dev.agnor.functionalui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -41,7 +40,7 @@ public class    ShulkerChanger {
                 for (var entry : flyData.entrySet()) {
                     SlotFlyData slotFlyData = entry.getValue();
                     Vector2i vector2i = slotFlyData.originalPos();
-                    Screen.blit(poseStack, screen.getGuiLeft() + vector2i.x() - 1, screen.getGuiTop() + vector2i.y() - 1, 82, 0, 18, 18);
+                    GuiComponent.blit(poseStack, screen.getGuiLeft() + vector2i.x() - 1, screen.getGuiTop() + vector2i.y() - 1, 82, 0, 18, 18);
                 }
                 for (var entry : flyData.entrySet()) {
                     SlotFlyData slotFlyData = entry.getValue();
@@ -54,20 +53,20 @@ public class    ShulkerChanger {
                         heightDiff = (int) (0.5f*0.125f * timeDiff * timeDiff) - 100;
                     }
                     target.y = vector2i.y + heightDiff;
-                    Screen.blit(poseStack, screen.getGuiLeft() + vector2i.x() - 1, screen.getGuiTop() + vector2i.y() + heightDiff - 1, 112, 0, 18, 18);
+                    GuiComponent.blit(poseStack, screen.getGuiLeft() + vector2i.x() - 1, screen.getGuiTop() + vector2i.y() + heightDiff - 1, 112, 0, 18, 18);
                 }
             });
             for (boolean isLeft: new Boolean[]{true, false}) {
                 int x = isLeft ? 0 : screen.width - 16;
                 int y = (screen.height - 24) / 2;
-                Screen.blit(poseStack, x , y, 130, 0, 16, 24);
+                GuiComponent.blit(poseStack, x , y, 130, 0, 16, 24);
             }
             for (SlotTargetData value : targetData.values()) {
                 int x = (int)Mth.lerp(partialTicks, value.lastPos.x, value.currentPos.x);
                 int y = (int)Mth.lerp(partialTicks, value.lastPos.y, value.currentPos.y);
-                Screen.blit(poseStack, x , y, 146, 0, 8, 8);
+                GuiComponent.blit(poseStack, x , y, 146, 0, 8, 8);
                 for (int i = 0; i < value.health; i++) {
-                    Screen.blit(poseStack, x - 8 + i*8, y - 10, 154, 0, 7, 7);
+                    GuiComponent.blit(poseStack, x - 8 + i*8, y - 10, 154, 0, 7, 7);
                 }
             }
         }

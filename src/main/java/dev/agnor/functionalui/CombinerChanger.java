@@ -3,18 +3,16 @@ package dev.agnor.functionalui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
-import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ContainerScreenEvent;
@@ -81,23 +79,23 @@ public class CombinerChanger {
             PoseStack poseStack = backgroundRendered.getPoseStack();
             RenderSystem.setShaderTexture(0, additionalAssets);
             if (screen instanceof LegacySmithingScreen legacySmithingScreen) {
-                screen.blit(poseStack, legacySmithingScreen.getGuiLeft()+17, legacySmithingScreen.getGuiTop()+7, 82, 0, 30, 30);
+                GuiComponent.blit(poseStack, legacySmithingScreen.getGuiLeft()+17, legacySmithingScreen.getGuiTop()+7, 82, 0, 30, 30);
             }
             if (screen instanceof AnvilScreen anvilScreen) {
-                    screen.blit(poseStack, anvilScreen.getGuiLeft()+17, anvilScreen.getGuiTop()+7, 82, 0, 30, 30);
+                GuiComponent.blit(poseStack, anvilScreen.getGuiLeft()+17, anvilScreen.getGuiTop()+7, 82, 0, 30, 30);
             }
             if (screen instanceof SmithingScreen smithingScreen) {
-                screen.blit(poseStack, smithingScreen.getGuiLeft()+7, smithingScreen.getGuiTop()+7, 82, 0, 30, 31);
+                GuiComponent.blit(poseStack, smithingScreen.getGuiLeft()+7, smithingScreen.getGuiTop()+7, 82, 0, 30, 31);
             }
             if (progress > 0) {
                 if (screen instanceof LegacySmithingScreen legacySmithingScreen) {
-                    screen.blit(poseStack, legacySmithingScreen.getGuiLeft() + 102, legacySmithingScreen.getGuiTop() + 48, 0, 0, (int)(22/5d*progress), 15);
+                    GuiComponent.blit(poseStack, legacySmithingScreen.getGuiLeft() + 102, legacySmithingScreen.getGuiTop() + 48, 0, 0, (int)(22/5d*progress), 15);
                 }
                 if (screen instanceof AnvilScreen anvilScreen) {
-                    screen.blit(poseStack, anvilScreen.getGuiLeft() + 102, anvilScreen.getGuiTop() + 48, 0, 0, (int)(22/5d*progress), 15);
+                    GuiComponent.blit(poseStack, anvilScreen.getGuiLeft() + 102, anvilScreen.getGuiTop() + 48, 0, 0, (int)(22/5d*progress), 15);
                 }
                 if (screen instanceof SmithingScreen smithingScreen) {
-                    screen.blit(poseStack, smithingScreen.getGuiLeft() + 68, smithingScreen.getGuiTop() + 49, 0, 0, (int)(22/5d*progress), 15);
+                    GuiComponent.blit(poseStack, smithingScreen.getGuiLeft() + 68, smithingScreen.getGuiTop() + 49, 0, 0, (int)(22/5d*progress), 15);
                 }
             }
         }
@@ -161,7 +159,7 @@ public class CombinerChanger {
         public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
             Vector2i pos = Optional.ofNullable(grabbedPosition).map(vec -> new Vector2i(mouseX, mouseY).sub((int) vec.x, (int) vec.y).add(defaultPosition)).orElse(defaultPosition);
             RenderSystem.setShaderTexture(0, additionalAssets);
-            Screen.blit(poseStack, pos.x, pos.y, isAnvil ? 52 : 22, 0, 30, 30);
+            GuiComponent.blit(poseStack, pos.x, pos.y, isAnvil ? 52 : 22, 0, 30, 30);
         }
 
         @Override
