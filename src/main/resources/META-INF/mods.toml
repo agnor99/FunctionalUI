@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[45,)"
 license="MIT"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+issueTrackerURL="https://github.com/agnor99/FunctionalUI/issues"
 
 [[mods]]
 modId="functionalui"
